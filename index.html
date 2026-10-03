@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNPL Season 2 | Player Entry Form</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:
+    radial-gradient(circle at 15% 10%,#183b30 0,transparent 32%),
+    radial-gradient(circle at 90% 0%,#26355b 0,transparent 30%),
+    linear-gradient(135deg,#050a12,#0b1824 55%,#102d22);
+    color:#fff;min-height:100vh}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.08;
+    background-image:linear-gradient(45deg,transparent 48%,#fff 49%,transparent 50%),
+    linear-gradient(-45deg,transparent 48%,#fff 49%,transparent 50%);background-size:80px 80px}
+header{padding:24px 18px;text-align:center;background:rgba(0,0,0,.25);border-bottom:1px solid #ffffff18}
+.logo{font-size:36px;font-weight:950;letter-spacing:2px;text-shadow:0 3px 18px #000}
+    .logo span{color:#e8b923}.sub{color:#b9c7d5;margin-top:7px;font-size:14px;letter-spacing:1px}
+    .season{display:inline-block;margin-top:10px;padding:5px 12px;border:1px solid #e8b92366;border-radius:99px;color:#e8b923;font-size:12px;font-weight:800}
+nav{display:flex;justify-content:center;gap:10px;padding:14px;flex-wrap:wrap}button,.navbtn{border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer}.navbtn{background:#ffffff12;color:#fff}.active{background:#e8b923;color:#111}
+.wrap{max-width:700px;margin:18px auto;padding:0 15px}.card{background:linear-gradient(180deg,#ffffff10,#ffffff08);backdrop-filter:blur(10px);border:1px solid #ffffff1c;border-radius:22px;padding:22px;box-shadow:0 18px 50px #0008}
+h1{font-size:25px;margin:0 0 18px;letter-spacing:.3px}.hint{color:#aebbc7;font-size:13px;margin:-10px 0 18px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.full{grid-column:1/-1}
+label{display:block;font-size:14px;font-weight:700;margin-bottom:7px;color:#dce7ef}input,select{width:100%;padding:13px;border-radius:11px;border:1px solid #ffffff22;background:#08131f;color:#fff;outline:none}input:focus,select:focus{border-color:#e8b923}
+.photo{padding:10px}.submit{width:100%;margin-top:18px;background:#e8b923;color:#111;font-size:16px}
+.success{display:none;text-align:center}.reg{font-size:30px;font-weight:900;color:#e8b923;margin:14px 0}
+.entry{background:#08131f;border:1px solid #ffffff15;border-radius:14px;padding:15px;margin:12px 0}.entry b{color:#e8b923}.photoPreview{width:80px;height:80px;object-fit:cover;border-radius:12px;margin-top:8px}
+.empty{text-align:center;color:#aebbc7;padding:30px}.danger{background:#b52a2a;color:#fff;margin-top:12px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.logo{font-size:28px}}
+</style>
+</head>
+<body>
+<header><div class="logo">🏏 <span>SNPL</span> SEASON 2</div><div class="sub">SHREERAM NAGAR PREMIER LEAGUE</div><div class="season">PLAYER ENTRY • SEASON 2</div></header>
+<nav>
+<button class="navbtn active" onclick="showPage('form',this)">Player Entry</button>
+</nav>
+
+<div class="wrap">
+<section id="formPage" class="card">
+<h1>🏏 Player Registration</h1><div class="hint">Fill your details carefully. All fields marked * are required.</div>
+<form id="playerForm">
+<div class="grid">
+<div><label>Player Name *</label><input id="name" required></div>
+<div><label>Age *</label><input id="age" type="number" min="1" max="99" required></div>
+<div><label>Jersey Number *</label><input id="jersey" type="number" min="1" max="999" required></div>
+<div><label>Mobile Number *</label><input id="mobile" type="tel" pattern="[0-9]{10}" maxlength="10" required></div>
+<div><label>Area / Address *</label><input id="area" required></div>
+<div><label>Playing Role *</label><select id="role" required><option value="">Select role</option><option>Batsman</option><option>Bowler</option><option>All-rounder</option><option>Wicket Keeper</option></select></div>
+<div><label>Batting Style *</label><select id="batting" required><option value="">Select</option><option>Right Hand</option><option>Left Hand</option></select></div>
+<div><label>Bowling Style *</label><select id="bowling" required><option value="">Select</option><option>Fast</option><option>Medium</option><option>Spin</option><option>None</option></select></div>
+<div><label>Player Photo *</label><input id="photo" class="photo" type="file" accept="image/*" required></div>
+</div>
+<button class="submit" type="submit">🏏 Submit Entry</button>
+</form>
+</section>
+
+<section id="successPage" class="card success">
+<h1>✅ Registration Successful!</h1>
+<p>Your SNPL Season 2 player entry has been submitted.</p>
+<div class="reg" id="regId">SUBMITTED</div>
+<p>Your registration will be recorded by the SNPL organizer.</p>
+<button class="submit" onclick="showPage('form',document.querySelector('.navbtn'))">Register Another Player</button>
+</section>
+
+</div>
+
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbxgmnwtduKKLfki5oGF_fDIROrwD95jEmn2V_rJmUrFEb2HWFlu3JYvKsNkLEzJhj7hlg/exec";
+
+function showPage(page,btn){
+ document.getElementById('formPage').style.display=page==='form'?'block':'none';
+ document.getElementById('successPage').style.display=page==='success'?'block':'none';
+ document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));
+ if(btn)btn.classList.add('active');
+}
+
+function registerAnother(){
+ document.getElementById('playerForm').reset();
+ document.getElementById('formPage').style.display='block';
+ document.getElementById('successPage').style.display='none';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function compressImage(file){
+ return new Promise((resolve,reject)=>{
+  const reader=new FileReader();
+  reader.onload=()=>{
+   const img=new Image();
+   img.onload=()=>{
+    const max=1200;
+    let w=img.width,h=img.height;
+    if(w>max||h>max){
+     if(w>h){h=Math.round(h*max/w);w=max;}
+     else{w=Math.round(w*max/h);h=max;}
+    }
+    const canvas=document.createElement('canvas');
+    canvas.width=w;canvas.height=h;
+    const ctx=canvas.getContext('2d');
+    ctx.drawImage(img,0,0,w,h);
+    resolve(canvas.toDataURL('image/jpeg',0.75));
+   };
+   img.onerror=reject;
+   img.src=reader.result;
+  };
+  reader.onerror=reject;
+  reader.readAsDataURL(file);
+ });
+}
+
+document.getElementById('playerForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const btn=e.target.querySelector('.submit');
+ const file=document.getElementById('photo').files[0];
+ if(!file)return;
+ btn.disabled=true;
+ btn.textContent='⏳ Submitting...';
+ try{
+  const photoData=await compressImage(file);
+  const data={
+   name:document.getElementById('name').value.trim(),
+   age:document.getElementById('age').value,
+   jersey:document.getElementById('jersey').value,
+   mobile:document.getElementById('mobile').value,
+   area:document.getElementById('area').value.trim(),
+   role:document.getElementById('role').value,
+   batting:document.getElementById('batting').value,
+   bowling:document.getElementById('bowling').value,
+   photoName:file.name.replace(/[^a-zA-Z0-9._-]/g,'_'),
+   photoType:'image/jpeg',
+   photoData:photoData
+  };
+  await fetch(SCRIPT_URL,{
+   method:'POST',
+   mode:'no-cors',
+   headers:{'Content-Type':'text/plain;charset=utf-8'},
+   body:JSON.stringify(data)
+  });
+  document.getElementById('formPage').style.display='none';
+  document.getElementById('successPage').style.display='block';
+  document.getElementById('regId').textContent='SUBMITTED';
+  e.target.reset();
+ }catch(err){
+  console.error(err);
+  alert('Submission failed. Please check your internet connection and try again.');
+ }finally{
+  btn.disabled=false;
+  btn.textContent='🏏 Submit Entry';
+ }
+});
+</script>
+<footer style="text-align:center;color:#81909e;font-size:12px;padding:24px 10px">SNPL Season 2 • Player Entry Portal</footer></body>
+</html>
